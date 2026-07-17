@@ -15,6 +15,7 @@
                 <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="180.0" minHeight="10.0" prefHeight="91.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label text="Login">
@@ -31,9 +32,10 @@
                     </font></Label>
                 <PasswordField fx:id="pfPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="tfUsername" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+              <Button mnemonicParsing="false" onAction="#onLoginClicked" text="Enter" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Hyperlink fx:id="hlRegister" onAction="#onGoToRegisterClicked" text="Create an account" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             </children>
         </GridPane>
-        <Button layoutX="204.0" layoutY="306.0" mnemonicParsing="false" onAction="#onLoginClicked" text="Enter" />
-        <Label fx:id="lblError" layoutX="204.0" layoutY="345.0" text="" style="-fx-text-fill: red;" />
+        <Label fx:id="lblError" layoutX="204.0" layoutY="345.0" style="-fx-text-fill: red;" text="" />
     </children>
 </AnchorPane>

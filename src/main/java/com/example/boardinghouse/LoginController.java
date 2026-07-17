@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.*;
 
 public class LoginController {
     static String username_login;
@@ -19,34 +20,78 @@ public class LoginController {
     public Label lblError;
     static boolean isDark = false;
 
-    private String[] usernames = {"admin", "user"};
-    private String[] passwords = {"pass123", "hello1"};
 
 
     public void onLoginClicked() throws IOException {
-        boolean success = false;
         String username = tfUsername.getText();
         String password = pfPassword.getText();
-        for (int i = 0; i < usernames.length; i++) {
-            if (username.equals(usernames[i]) && password.equals(passwords[i])) {
-                lblError.setText("Successfully logged in");
-                username_login = usernames[i];
+        boolean success = false;
+        String ownerQuery = "SELECT * FROM owners WHERE username = ? AND password = ?";
+        try (Connection conn = MySQLConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(ownerQuery)) {
+
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
                 success = true;
-                Stage stage = (Stage) lblError.getScene().getWindow();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("landing-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                stage.setScene(scene);
-                break;
+                lblError.setText("");
+                switchScene("owner-dashboard-view.fxml", "Owner Dashboard");
+                return;
             }
+
+        } catch (SQLException e) {
+            System.out.println("SQLException (owners): " + e.getMessage());
         }
+
+        String caretakerQuery = "SELECT * FROM caretakers WHERE username = ? AND password = ?";
+        try (Connection conn = MySQLConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(caretakerQuery)) {
+
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                success = true;
+                lblError.setText("");
+                switchScene("caretaker-dashboard.fxml", "Caretaker Dashboard");
+                return;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQLException (caretakers): " + e.getMessage());
+        }
+
+
         if (!success) {
-            lblError.setText("Invalid username or password");
+            lblError.setText("Invalid username or password.");
         }
     }
 
     public void onPasswordKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             onLoginClicked();
+        }
+    }
+
+
+    @FXML
+    public void onGoToRegisterClicked() {
+        switchScene("register-view.fxml", "Register");
+    }
+
+    private void switchScene(String fxmlFile, String title) {
+        try {
+            Stage stage = (Stage) tfUsername.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setScene(scene);
+            stage.setTitle(title);
+        } catch (IOException e) {
+            e.printStackTrace();
+            lblError.setText("Error loading screen.");
         }
     }
 }
