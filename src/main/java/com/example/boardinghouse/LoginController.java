@@ -37,6 +37,11 @@ public class LoginController {
             if (rs.next()) {
                 success = true;
                 lblError.setText("");
+
+                int userID = rs.getInt("ownerId");
+                Session session = new Session(userID, username, "Owner");
+                SessionManager.createSession(session);
+
                 switchScene("owner-dashboard-view.fxml", "Owner Dashboard");
                 return;
             }
@@ -56,7 +61,12 @@ public class LoginController {
             if (rs.next()) {
                 success = true;
                 lblError.setText("");
-                switchScene("caretaker-dashboard.fxml", "Caretaker Dashboard");
+
+                int userID = rs.getInt("id"); // assuming your owners/caretakers table has an "id" column
+                Session session = new Session(userID, username, "Caretaker");
+                SessionManager.createSession(session);
+
+                switchScene("caretaker-dashboard-view.fxml", "Caretaker Dashboard");
                 return;
             }
 

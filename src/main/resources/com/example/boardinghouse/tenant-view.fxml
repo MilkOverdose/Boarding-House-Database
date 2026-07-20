@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.boardinghouse.TenantController">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #ecf0f1;">
+            <padding><Insets top="14" bottom="14" left="20" right="20"/></padding>
+            <Label text="Manage Tenants" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnBack" text="Back to Dashboard" onAction="#onBackToDashboardClicked"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="15">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+
+            <!-- FORM -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="tfName" promptText="Name"/>
+                <TextField fx:id="tfAge" promptText="Age"/>
+                <TextField fx:id="tfContact" promptText="Contact"/>
+                <TextField fx:id="tfRoomNum" promptText="Room Number"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Button text="Add" onAction="#onAddTenantClicked"/>
+                <Button text="Update Selected" onAction="#onUpdateTenantClicked"/>
+                <Button text="Delete Selected" onAction="#onDeleteTenantClicked"/>
+                <Button text="Clear Form" onAction="#onClearFormClicked"/>
+            </HBox>
+
+            <Label fx:id="lblMessage" style="-fx-text-fill: red;"/>
+
+            <!-- TABLE -->
+            <TableView fx:id="tenantTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colID" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colName" text="Name" prefWidth="150"/>
+                    <TableColumn fx:id="colAge" text="Age" prefWidth="60"/>
+                    <TableColumn fx:id="colContact" text="Contact" prefWidth="120"/>
+                    <TableColumn fx:id="colRoomNum" text="Room" prefWidth="80"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+</BorderPane>

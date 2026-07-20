@@ -46,4 +46,8 @@ public class Tenant {
     public void setRoomNum(int roomNum) {
         roomNum = roomNum;
     }
+
+    public String getContact() {
+        return contact;
+    }
 }

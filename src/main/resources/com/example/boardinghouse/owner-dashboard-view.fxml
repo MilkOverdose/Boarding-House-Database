@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.boardinghouse.OwnerDashboardController"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.boardinghouse.OwnerDashboardController">
+
+   <!-- HEADER -->
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #ecf0f1; -fx-border-color: transparent transparent #d0d0d0 transparent; -fx-border-width: 0 0 1 0;">
+         <padding>
+            <Insets bottom="14" left="20" right="20" top="14" />
+         </padding>
+         <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Boarding House Management" />
+         <Region HBox.hgrow="ALWAYS" />
+         <Label style="-fx-text-fill: gray; -fx-font-size: 13px;" text="Welcome, John" />
+      </HBox>
+   </top>
+
+   <!-- SIDEBAR -->
+   <left>
+      <VBox prefWidth="200" spacing="6" style="-fx-background-color: #f4f4f4; -fx-border-color: transparent #d0d0d0 transparent transparent; -fx-border-width: 0 1 0 0;">
+         <padding>
+            <Insets bottom="16" left="16" right="16" top="16" />
+         </padding>
+
+         <Label style="-fx-padding: 8 12; -fx-background-color: #d6e4f0; -fx-background-radius: 6; -fx-font-size: 14px;" text="Dashboard" />
+         <Button fx:id="btnManageTenants" alignment="CENTER_LEFT" onAction="#onManageTenantsClicked" prefWidth="168" style="-fx-background-color: transparent;" text="Tenants" />
+         <Button alignment="CENTER_LEFT" onAction="#onManageRoomsClicked" prefWidth="168" style="-fx-background-color: transparent;" text="Rooms" />
+         <Button alignment="CENTER_LEFT" onAction="#onManagePaymentsClicked" prefWidth="168" style="-fx-background-color: transparent;" text="Payments" />
+         <Button alignment="CENTER_LEFT" onAction="#onManageCaretakersClicked" prefWidth="168" style="-fx-background-color: transparent;" text="Caretakers" />
+
+         <Region VBox.vgrow="ALWAYS" />
+
+         <Button alignment="CENTER_LEFT" onAction="#onLogoutClicked" prefWidth="168" style="-fx-background-color: transparent; -fx-text-fill: #c0392b;" text="Logout" />
+      </VBox>
+   </left>
+
+   <!-- MAIN CONTENT -->
+   <center>
+      <VBox spacing="20">
+         <padding>
+            <Insets bottom="20" left="20" right="20" top="20" />
+         </padding>
+
+         <!-- STAT CARDS (dynamic) -->
+         <HBox spacing="12">
+            <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #f4f4f4; -fx-background-radius: 8; -fx-padding: 14;">
+               <Label fx:id="lblTotalTenants" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+               <Label text="Total Tenants" style="-fx-text-fill: gray; -fx-font-size: 13px;"/>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #f4f4f4; -fx-background-radius: 8; -fx-padding: 14;">
+               <Label fx:id="lblAvailableRooms" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+               <Label text="Available Rooms" style="-fx-text-fill: gray; -fx-font-size: 13px;"/>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #f4f4f4; -fx-background-radius: 8; -fx-padding: 14;">
+               <Label fx:id="lblOccupiedRooms" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+               <Label text="Occupied Rooms" style="-fx-text-fill: gray; -fx-font-size: 13px;"/>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #f4f4f4; -fx-background-radius: 8; -fx-padding: 14;">
+               <Label fx:id="lblPendingPayments" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+               <Label text="Pending Payments" style="-fx-text-fill: gray; -fx-font-size: 13px;"/>
+            </VBox>
+         </HBox>
+
+      </VBox>
+   </center>
 
 </BorderPane>
