@@ -19,6 +19,7 @@ public class LoginController {
     public PasswordField pfPassword;
     public Label lblError;
     static boolean isDark = false;
+    private IDatabaseConnection db = new MySQLConnection();
 
 
 
@@ -27,7 +28,7 @@ public class LoginController {
         String password = pfPassword.getText();
         boolean success = false;
         String ownerQuery = "SELECT * FROM owners WHERE username = ? AND password = ?";
-        try (Connection conn = MySQLConnection.getConnection();
+        try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(ownerQuery)) {
 
             stmt.setString(1, username);
@@ -51,7 +52,7 @@ public class LoginController {
         }
 
         String caretakerQuery = "SELECT * FROM caretakers WHERE username = ? AND password = ?";
-        try (Connection conn = MySQLConnection.getConnection();
+        try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(caretakerQuery)) {
 
             stmt.setString(1, username);

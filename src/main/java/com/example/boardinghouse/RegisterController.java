@@ -23,13 +23,15 @@ public class RegisterController {
     @FXML
     private Label lblMessage;
     boolean success;
+    private IDatabaseConnection db = new MySQLConnection();
+
 
     public void onSignInClicked() throws IOException {
         boolean success = false;
         String username = tfUsername.getText();
         String password = pfPassword.getText();
 
-        try (Connection c = MySQLConnection.getConnection();
+        try (Connection c = db.getConnection();
              PreparedStatement stmt = c.prepareStatement("INSERT INTO users (name,password) VALUES (?,?);")
         ) {
             stmt.setString(1, username);

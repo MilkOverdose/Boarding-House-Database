@@ -30,6 +30,7 @@ public class TenantController {
 
     private ObservableList<Tenant> tenantList = FXCollections.observableArrayList();
     private Tenant selectedTenant = null; // tracks which row is being edited
+    private IDatabaseConnection db = new MySQLConnection();
 
     @FXML
     public void initialize() {
@@ -58,7 +59,7 @@ public class TenantController {
     private void loadTenants() {
         tenantList.clear();
         String query = "SELECT * FROM tenants";
-        try (Connection conn = MySQLConnection.getConnection();
+        try (Connection conn = db.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
@@ -95,7 +96,7 @@ public class TenantController {
             int roomNum = Integer.parseInt(tfRoomNum.getText());
 
             String query = "INSERT INTO tenants (name, age, contact, room_num) VALUES (?, ?, ?, ?)";
-            try (Connection conn = MySQLConnection.getConnection();
+            try (Connection conn = db.getConnection();
                  PreparedStatement stmt = conn.prepareStatement(query)) {
 
                 stmt.setString(1, name);
@@ -134,7 +135,7 @@ public class TenantController {
             int roomNum = Integer.parseInt(tfRoomNum.getText());
 
             String query = "UPDATE tenants SET name = ?, age = ?, contact = ?, room_num = ? WHERE id = ?";
-            try (Connection conn = MySQLConnection.getConnection();
+            try (Connection conn = db.getConnection();
                  PreparedStatement stmt = conn.prepareStatement(query)) {
 
                 stmt.setString(1, name);
@@ -169,7 +170,7 @@ public class TenantController {
         }
 
         String query = "DELETE FROM tenants WHERE id = ?";
-        try (Connection conn = MySQLConnection.getConnection();
+        try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setInt(1, selected.getTenantID());

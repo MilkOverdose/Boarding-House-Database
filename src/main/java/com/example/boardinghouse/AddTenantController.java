@@ -19,6 +19,7 @@ public class AddTenantController {
     @FXML private TextField tfContact;
     @FXML private TextField tfRoomNum;
     @FXML private Label lblMessage;
+    private IDatabaseConnection db = new MySQLConnection();
 
     @FXML
     public void onAddTenantClicked() {
@@ -44,7 +45,7 @@ public class AddTenantController {
 
         String query = "INSERT INTO tenants (name, age, contact, room_num) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = MySQLConnection.getConnection();
+        try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, name);

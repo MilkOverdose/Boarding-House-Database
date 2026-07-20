@@ -12,7 +12,7 @@ public class Tenant {
         this.age = age;
         this.tenantID = tenantID;
         this.roomNum = roomNum;
-
+        this.contact = contact;
     }
 
     public String getName() {

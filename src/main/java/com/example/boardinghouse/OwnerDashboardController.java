@@ -21,6 +21,7 @@ public class OwnerDashboardController {
     @FXML private Label lblAvailableRooms;
     @FXML private Label lblOccupiedRooms;
     @FXML private Label lblPendingPayments;
+    private IDatabaseConnection db = new MySQLConnection();
 
     @FXML
     public void initialize() {
@@ -37,7 +38,7 @@ public class OwnerDashboardController {
     }
 
     private void loadStats() {
-        try (Connection conn = MySQLConnection.getConnection();
+        try (Connection conn = db.getConnection();
              Statement stmt = conn.createStatement()) {
 
             // Total tenants
