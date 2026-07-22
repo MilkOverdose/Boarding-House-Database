@@ -29,7 +29,7 @@ public class TenantController {
     @FXML private TableColumn<Tenant, Integer> colRoomNum;
 
     private ObservableList<Tenant> tenantList = FXCollections.observableArrayList();
-    private Tenant selectedTenant = null; // tracks which row is being edited
+    private Tenant selectedTenant = null;
     private IDatabaseConnection db = new MySQLConnection();
 
     @FXML
@@ -64,13 +64,13 @@ public class TenantController {
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
-                Tenant t = new Tenant(
-                        rs.getString("name"),
-                        rs.getInt("age"),
-                        rs.getInt("id"),
-                        rs.getInt("room_num"),
-                        rs.getString("contact")
-                );
+                Tenant t = new TenantBuilder()
+                        .setName(rs.getString("name"))
+                        .setAge(rs.getInt("age"))
+                        .setTenantID(rs.getInt("id"))
+                        .setRoomNum(rs.getInt("room_num"))
+                        .setContact(rs.getString("contact"))
+                        .build();
                 tenantList.add(t);
             }
         } catch (SQLException e) {

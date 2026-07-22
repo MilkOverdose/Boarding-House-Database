@@ -64,28 +64,28 @@ public class OwnerDashboardController {
 
     @FXML
     public void onManageTenantsClicked() {
-        switchScene("tenant-view.fxml", "Manage Tenants");
+        NavigationFacade.switchScene(btnManageTenants, "tenant-view.fxml", "Manage Tenants");
     }
 
     @FXML
     public void onManageRoomsClicked() {
-        switchScene("room-view.fxml", "Manage Rooms");
+        NavigationFacade.switchScene(btnManageTenants, "room-view.fxml", "Manage Rooms");
     }
 
     @FXML
     public void onManagePaymentsClicked() {
-        switchScene("payment-view.fxml", "Manage Payments");
+        NavigationFacade.switchScene(btnManageTenants, "payment-view.fxml", "Manage Payments");
     }
 
     @FXML
     public void onManageCaretakersClicked() {
-        switchScene("caretaker-view.fxml", "Manage Caretakers");
+        NavigationFacade.switchScene(btnManageTenants, "caretaker-view.fxml", "Manage Caretakers");
     }
 
     @FXML
     public void onLogoutClicked() {
         SessionManager.clearSession();
-        switchScene("login-view.fxml", "Login");
+        NavigationFacade.switchScene(btnManageTenants, "login-view.fxml", "Login");
     }
 
     private void redirectToLogin() {
